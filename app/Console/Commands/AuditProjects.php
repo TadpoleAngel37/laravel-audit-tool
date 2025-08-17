@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Symfony\Component\Process\Process;
@@ -43,7 +42,7 @@ class AuditProjects extends Command
         $results = [];
 
         foreach ($projects as $path) {
-            $this->line("• Auditing project at: {$path}");
+            $this->line(" • Auditing project at: {$path}");
 
             // Build command as an array
             // If composerBin contains spaces (e.g., "php /path/composer"), split it safely:
@@ -57,17 +56,7 @@ class AuditProjects extends Command
             // Run the process
             $process->run();
 
-            if (! $process->isSuccessful()) {
-                $results[$path] = [
-                    'ok' => false,
-                    'error' => $process->getErrorOutput() ?: $process->getOutput(),
-                    'advisories' => [],
-                ];
-                $this->error(" ✖ Failed: " . Str::limit($results[$path]['error'], 200));
-                continue;
-            }
-
-            $raw = $process->getOutput();
+            $raw = $process->getOutput() ?: $process->getErrorOutput();
             
             // Attempt to decode JSON output (Composer 2.4+)
             $json = json_decode($raw, true);
@@ -167,7 +156,7 @@ class AuditProjects extends Command
             foreach ($issues as $i) {
                 $pkg = $i['package'] ?? 'unknown package';
                 $title = $i['title'] ?? 'Advisory';
-                $cve = $i['cve'] ? " [{'cve']}]" : '';
+                $cve = $i['cve'] ? " [{$i['cve']}]" : '';
                 $sev = $i['severity'] ? " ({$i['severity']})" : '';
                 $aff = $i['affected'] ? " affected: {$i['affected']}" : '';
                 $link = $i['link'] ? " {$i['link']}" : '';

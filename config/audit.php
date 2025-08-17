@@ -4,9 +4,10 @@ return [
 
     // projects you want to audit
     'projects' => [
-        //filler
-        '/var/www/site-a',
-        '/var/www/site-b',
+        // put the paths to your Laravel projects here
+        // these should be absolute paths
+        // e.g., '/var/www/my-laravel-project'
+        '',
     ],
     
     // email address to send the report to
