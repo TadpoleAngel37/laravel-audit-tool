@@ -54,8 +54,9 @@ class AuditProjects extends Command
                 $binParts,
                 ['audit', '--format=json']);
             */
-
-            $process = new Process(['php', '~/composer.phar', 'audit', '--format=json'], $path, null, null, $timeout);
+            
+            $composerPhar = getenv('HOME') . '/composer.phar';
+            $process = new Process(['php', $composerPhar, 'audit', '--format=json'], $path, null, null, $timeout);
 
             // Run the process
             $process->run();
