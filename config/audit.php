@@ -7,7 +7,9 @@ return [
         // put the paths to your Laravel projects here
         // these should be absolute paths
         // e.g., '/var/www/my-laravel-project'
-        '',
+        '/home/u774168607/domains/pink-spoonbill-231702.hostingersite.com',
+        '/home/u774168607/domains/yellow-ibex-899593.hostingersite.com',
+        '/home/u774168607/domains/wheat-salmon-687799.hostingersite.com',
     ],
     
     // email address to send the report to
