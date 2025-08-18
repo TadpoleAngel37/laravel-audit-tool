@@ -44,14 +44,18 @@ class AuditProjects extends Command
         foreach ($projects as $path) {
             $this->line(" • Auditing project at: {$path}");
 
+            /*
             // Build command as an array
             // If composerBin contains spaces (e.g., "php /path/composer"), split it safely:
             $binParts = preg_split('/\s+/', $composerBin);
-
+            
+            
             $cmd = array_merge(
                 $binParts,
                 ['audit', '--format=json']);
-            $process = new Process($cmd, $path, null, null, $timeout);
+            */
+
+            $process = new Process(['php', '~/composer.phar', 'audit', '--format=json'], $path, null, null, $timeout);
 
             // Run the process
             $process->run();
@@ -83,7 +87,7 @@ class AuditProjects extends Command
                 foreach ((array) $items as $adv) {
                     $flat[] = [
                         'package' => $package,
-                        'title' => $adv['title'] ?? ($adv['advisoryTitle'] ?? 'Unkown'),
+                        'title' => $adv['title'] ?? ($adv['advisoryTitle'] ?? 'Unknown'),
                         'cve' => $adv['cve'] ?? ($adv['cveID'] ?? null),
                         'link' => $adv['link'] ?? ($adv['advisoryLink'] ?? null),
                         'severity' => $adv['severity'] ?? null,
@@ -122,7 +126,7 @@ class AuditProjects extends Command
                 $this->info("Report emailed to {$to}");
             }
         } else {
-            $this->comment('Email suppressed ny --no-mail option.');
+            $this->comment('Email suppressed by --no-mail option.');
         }
 
         $hasFailures = collect($results)->contains(fn ($r) => ! $r['ok'] === false);
