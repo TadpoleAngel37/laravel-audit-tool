@@ -48,18 +48,18 @@ The report can be emailed automatically, making it easier to stay ahead of secur
 
 ## Example Report
 
-Starting audits...
- • Auditing project at: /home/uXXXX/domains/project1.hostingersite.com
- ✔ No vulnerabilities found.
- • Auditing project at: /home/uXXXX/domains/project2.hostingersite.com
- ✖ Found 2 advisories.
+Starting audits...   
+ • Auditing project at: /home/uXXXX/domains/project1.hostingersite.com   
+ ✔ No vulnerabilities found.   
+ • Auditing project at: /home/uXXXX/domains/project2.hostingersite.com   
+ ✖ Found 2 advisories.   
+   
+Laravel Security Audit Report   
+Generated: 2025-08-18 18:04:02   
+========================================   
 
-Laravel Security Audit Report
-Generated: 2025-08-18 18:04:02
-========================================
-
- Project: /home/uXXXX/domains/project2.hostingersite.com
-  - [Critical] Livewire RCE vulnerability (CVE-2025-54068)
-  - [High] SomePackage XXE injection
-
-End of report.
+ Project: /home/uXXXX/domains/project2.hostingersite.com   
+  - [Critical] Livewire RCE vulnerability (CVE-2025-54068)   
+  - [High] SomePackage XXE injection   
+   
+End of report.   
