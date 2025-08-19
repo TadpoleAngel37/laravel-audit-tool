@@ -1,61 +1,65 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel Audit Tool
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel Artisan command that automates security checks for multiple Laravel projects.  
+It runs `composer audit` on each project, parses the results, and generates a summary report.  
+The report can be emailed automatically, making it easier to stay ahead of security advisories.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Audits multiple Laravel projects at once
+- Uses `composer audit` for official security advisories
+- Parses JSON output for clean, human-readable reports
+- Sends results by email (or prints to console with `--no-mail`)
+- Configurable via `.env` and `config/audit.php`
+- Easy to extend (add new project paths, adjust email, tweak timeouts)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Installation 
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+1. Clone the repo onto your server.
+2. Install composer in the project root folder:
+    - cd into 'laravel-audit-tool' and run 'composer install'.
+3. Set up environment file:
+    - run 'cp .env.example .env'
+4. Configure .env:
+    - Add the following variables:
+          AUDIT_REPORT_TO= . . . . . (Recipient email of summary report (e.g. "test@example.org"))
+          AUDIT_REPORT_SUBJECT=. . . (Subject line of summary report email (e.g. "Example Security Audit Report"))
+          AUDIT_COMPOSER_BIN=. . . . (How you would like to call composer (e.g. "composer"; this defaults to "composer" if left blank))
+    - Set up email using the MAIL_ variable series. If left unchanged, the email will be printed in storage/logs/laravel.log.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+---
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Configuration
 
-## Laravel Sponsors
+- Edit config/audit.php to customize which projects will be audited, composer binary, command timeout, and mail options.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Usage
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- Run an audit and email the results              -> 'php artisan app:audit-projects'
+- Run without sneding email (console output only) -> 'php artisan app:audit-projects --no-mail'
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Example Report
 
-## Code of Conduct
+Starting audits...
+ • Auditing project at: /home/uXXXX/domains/project1.hostingersite.com
+ ✔ No vulnerabilities found.
+ • Auditing project at: /home/uXXXX/domains/project2.hostingersite.com
+ ✖ Found 2 advisories.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Laravel Security Audit Report
+Generated: 2025-08-18 18:04:02
+========================================
 
-## Security Vulnerabilities
+ Project: /home/uXXXX/domains/project2.hostingersite.com
+  - [Critical] Livewire RCE vulnerability (CVE-2025-54068)
+  - [High] SomePackage XXE injection
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+End of report.
