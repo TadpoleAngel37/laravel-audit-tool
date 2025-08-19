@@ -25,10 +25,10 @@ The report can be emailed automatically, making it easier to stay ahead of secur
 3. Set up environment file:
     - run 'cp .env.example .env'
 4. Configure .env:
-    - Add the following variables:
-          - AUDIT_REPORT_TO= . . . . . (Recipient email of summary report (e.g. "test@example.org"))
-          - AUDIT_REPORT_SUBJECT=. . . (Subject line of summary report email (e.g. "Example Security Audit Report"))
-          - AUDIT_COMPOSER_BIN=. . . . (How you would like to call composer (e.g. "composer"; this defaults to "composer" if left blank))
+    - Add the following variables:   
+          AUDIT_REPORT_TO= . . . . . (Recipient email of summary report (e.g. "test@example.org"))   
+          AUDIT_REPORT_SUBJECT=. . . (Subject line of summary report email (e.g. "Example Security Audit Report"))   
+          AUDIT_COMPOSER_BIN=. . . . (How you would like to call composer (e.g. "composer"; this defaults to "composer" if left blank))   
     - Set up email using the MAIL_ variable series. If left unchanged, the email will be printed in storage/logs/laravel.log.
 
 ---
