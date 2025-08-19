@@ -55,9 +55,8 @@ Starting audits...
  ✖ Found 2 advisories.   
    
 Laravel Security Audit Report   
-Generated: 2025-08-18 18:04:02   
-========================================   
-
+Generated: 2025-08-18 18:04:02     
+    
  Project: /home/uXXXX/domains/project2.hostingersite.com   
   - [Critical] Livewire RCE vulnerability (CVE-2025-54068)   
   - [High] SomePackage XXE injection   
